@@ -23,7 +23,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(\App\Repositories\ClienteRepository::class, \App\Repositories\ClienteRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\FazendasRepository::class, \App\Repositories\FazendasRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\FazendasPiquetesRepository::class, \App\Repositories\FazendasPiquetesRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\PastosRepository::class, \App\Repositories\PastosRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\PastosPeriodoRepository::class, \App\Repositories\PastosPeriodoRepositoryEloquent::class);
         //:end-bindings:
     }
 }

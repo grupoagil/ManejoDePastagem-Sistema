@@ -4,9 +4,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateClientesTable.
+ * Class CreateFazendasTable.
  */
-class CreateClientesTable extends Migration
+class CreateFazendasTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -15,8 +15,12 @@ class CreateClientesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('clientes', function(Blueprint $table) {
+		Schema::create('fazendas', function(Blueprint $table) {
             $table->increments('id');
+
+			$table->string('FAZENDA_NOME');
+			$table->integer('PASTO_ID')->unsigned();
+			$table->foreign('PASTO_ID')->references('id')->on('pastos')->onDelete('cascade');
 
             $table->timestamps();
 		});
@@ -29,6 +33,6 @@ class CreateClientesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('clientes');
+		Schema::drop('fazendas');
 	}
 }
