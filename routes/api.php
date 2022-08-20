@@ -18,5 +18,10 @@ Route::group(['namespace'=>'Api'],function () {
     Route::post('register', 'AuthController@signup');
     Route::group(['middleware' => 'auth:sanctum'],function () {
         Route::get('me', 'AuthController@me');
+        // Pasto
+        Route::group(['prefix'=>'pastos'],function () {
+            Route::post('novo', 'PastosController@novo');
+            Route::get('lista', 'PastosController@lista');
+        });
     });
 });
