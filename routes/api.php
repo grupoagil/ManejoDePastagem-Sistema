@@ -20,8 +20,21 @@ Route::group(['namespace'=>'Api'],function () {
         Route::get('me', 'AuthController@me');
         // Pasto
         Route::group(['prefix'=>'pastos'],function () {
-            Route::post('novo', 'PastosController@novo');
             Route::get('lista', 'PastosController@lista');
+            Route::post('novo', 'PastosController@novo');
+            Route::post('apagar', 'PastosController@apagar');
+        });
+        // Fazendas
+        Route::group(['prefix'=>'fazendas'],function () {
+            Route::get('lista', 'FazendasController@lista');
+            Route::post('{id}/atualiza', 'FazendasController@atualiza');
+            Route::post('novo', 'FazendasController@novo');
+            Route::post('apagar', 'FazendasController@apagar');
+            // Fazendas
+            Route::group(['prefix'=>'{id}/piquetes'],function () {
+                Route::post('novo', 'FazendasController@addPiquete');
+                Route::post('apagar', 'FazendasController@removePiquete');
+            });
         });
     });
 });

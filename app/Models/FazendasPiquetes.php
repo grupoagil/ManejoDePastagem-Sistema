@@ -29,4 +29,14 @@ class FazendasPiquetes extends Model implements Transformable
         'PIQUETE_ULTIMA_OCUPACAO'
     ];
 
+    /**
+     * Get the fazenda that owns the FazendasPiquetes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function fazenda()
+    {
+        return $this->belongsTo(Fazendas::class, 'FAZENDA_ID', 'id');
+    }
+
 }

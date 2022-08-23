@@ -25,4 +25,14 @@ class Fazendas extends Model implements Transformable
         'PASTO_ID'
     ];
 
+    /**
+     * Get all of the piquetes for the Fazendas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function piquetes()
+    {
+        return $this->hasMany(FazendasPiquetes::class, 'FAZENDA_ID', 'id');
+    }
+
 }

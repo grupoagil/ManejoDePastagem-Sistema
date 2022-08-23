@@ -19,7 +19,7 @@ class CreateFazendasTable extends Migration
             $table->increments('id');
 
 			$table->string('FAZENDA_NOME');
-			$table->integer('PASTO_ID')->unsigned();
+			$table->integer('PASTO_ID')->unsigned()->nullable();
 			$table->foreign('PASTO_ID')->references('id')->on('pastos')->onDelete('cascade');
 
             $table->timestamps();

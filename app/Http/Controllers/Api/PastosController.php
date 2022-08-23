@@ -22,34 +22,58 @@ class PastosController extends BaseController
         $this->pastosRepository = $pastosRepository;
     }
 
-    public function novo(Request $request)
-    {
+    /**
+     * Pastos
+     */
+
         /**
-         * Validation
+         * Lista Pastos
          */
-        $validator = Validator::make($request->all(), [
-            'pasto_nome' => 'required',
-            'pasto_data_inicial' => 'required',
-            'pasto_data_final' => 'required',
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Error validation', $validator->errors());       
+        public function lista()
+        {
+            $pastos = $this->pastosRepository->all();
+            return $this->sendResponse($pastos->makeHidden(['created_at','updated_at']), 'Get List Pastos.');
+        }
+        
+        /**
+         * Novo Pasto
+         */
+        public function novo(Request $request)
+        {
+            /**
+             * Validation
+             */
+            $validator = Validator::make($request->all(), [
+                'pasto_nome' => 'required',
+                'pasto_data_inicial' => 'required',
+                'pasto_data_final' => 'required',
+            ]);
+    
+            if($validator->fails()){
+                return $this->sendError('Error validation', $validator->errors());       
+            }
+
+            // Create
+            $pasto = $this->pastosRepository->create([
+                'PASTO_NOME' => $request->pasto_nome,
+                'PASTO_DATA_INICIAL' => $request->pasto_data_inicial,
+                'PASTO_DATA_FINAL' => $request->pasto_data_final,
+                'PASTO_DESCRICAO' => $request->pasto_descricao
+            ]);
+            return $this->sendResponse($pasto->makeHidden(['created_at','updated_at']), 'Pasto Created.');
         }
 
-        // Create
-        $pasto = $this->pastosRepository->create([
-            'PASTO_NOME' => $request->pasto_nome,
-            'PASTO_DATA_INICIAL' => $request->pasto_data_inicial,
-            'PASTO_DATA_FINAL' => $request->pasto_data_final,
-            'PASTO_DESCRICAO' => $request->pasto_descricao
-        ]);
-        return $this->sendResponse($pasto->makeHidden(['id','created_at','updated_at']), 'Pasto Created.');
-    }
-
-    public function lista()
-    {
-        $pastos = $this->pastosRepository->all();
-        return $this->sendResponse($pastos->makeHidden(['id','created_at','updated_at']), 'Get List Pastos.');
-    }
+        /**
+         * Apagar Pasto
+         */
+        public function apagar(Request $request)
+        {
+            try {
+                $pasto = $this->pastosRepository->delete($request->id);
+                return $this->sendResponse($pasto, 'Pasto id: '.$request->id.' deleted.');
+            } catch (\Throwable $th) {
+                //throw $th;
+                return $this->sendResponse($th->getMessage(), 'Erro delete Fazenda id '.$request->id);
+            }
+        }
 }
