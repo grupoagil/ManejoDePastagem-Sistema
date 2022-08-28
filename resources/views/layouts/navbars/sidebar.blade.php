@@ -2,7 +2,7 @@
     data-image="{{ asset('material') }}/img/sidebar-1.jpg">
     <div class="logo">
         <a href="{{route('home')}}" class="simple-text logo-normal">
-            {{ __('UFRA - Manejo  ') }}
+            <img src="{{asset('material')}}/img/logo.svg" alt="" width="100px">
         </a>
     </div>
     <div class="sidebar-wrapper">

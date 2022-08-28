@@ -1,8 +1,11 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Material Dashboard')])
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Ufra Manejo')])
 
 @section('content')
     <div class="container" style="height: auto;">
         <div class="row align-items-center">
+            <div class="col-12 ml-auto mr-auto text-center">
+                <img src="{{asset('material')}}/img/logo-login.svg" alt="" width="100px">
+            </div>
             <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                 <form class="form" method="POST" action="{{ route('login') }}">
                     @csrf

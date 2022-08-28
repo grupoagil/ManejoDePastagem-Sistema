@@ -16,6 +16,11 @@
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #0c7a24;
+        }
+    </style>
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
