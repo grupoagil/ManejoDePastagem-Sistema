@@ -6,12 +6,28 @@ use Validator;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\PastosRepository;
+use App\Repositories\FazendasRepository;
+use App\Repositories\FazendasPiquetesRepository;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
 class AuthController extends BaseController
 {
-
-    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(
+        PastosRepository $pastosRepository,
+        FazendasRepository $fazendasRepository,
+        FazendasPiquetesRepository $fazendasPiquetesRepository
+    )
+    {
+        $this->pastosRepository = $pastosRepository;
+        $this->fazendasRepository = $fazendasRepository;
+        $this->fazendasPiquetesRepository = $fazendasPiquetesRepository;
+    }
 
     public function signin(Request $request)
     {
@@ -54,5 +70,17 @@ class AuthController extends BaseController
     public function me()
     {
         return $this->sendResponse(auth()->user()->makeHidden(['id','email_verified_at','type','created_at','updated_at']),'Get User.');
+    }
+
+    public function info()
+    {
+        $array = [
+            "pastos" => $this->pastosRepository->count(),
+            "fazendas"=>[
+                "count" => $this->fazendasRepository->count(),
+                "piquetes" => $this->fazendasPiquetesRepository->count()
+            ]
+        ];
+        return $this->sendResponse($array,'Get Info.');
     }
 }

@@ -192,6 +192,29 @@ class FazendasController extends BaseController
                 'PIQUETE_ULTIMA_DESOCUPACAO',
                 'PIQUETE_ULTIMA_OCUPACAO']);
             }])->find($idFazenda);
-            return $this->sendResponse($fazenda->makeHidden(['created_at','updated_at']), 'Piquete adedded to Fazenda '.$fazenda->FAZENDA_NOME);
+            return $this->sendResponse($fazenda->makeHidden(['created_at','updated_at']), 'Piquete removed to Fazenda '.$fazenda->FAZENDA_NOME);
+        }
+
+        public function atualizaPiquete(Request $request, $idFazenda)
+        {
+            // date_default_timezone_set('America/Belem');
+            $piquetes = $this->fazendasPiquetesRepository->findWhere(['FAZENDA_ID' => $idFazenda,'PIQUETE_INDEX' => $request->index]);
+            if ($piquetes->count() == 0) {
+                # code...
+                // Error
+            }
+            $piquetes->first()->update([
+                "PIQUETE_OCUPADO" => ($request->ocupado)?1:0,
+            ]);
+            if ($request->ocupado) {
+                $piquetes->first()->update([
+                    "PIQUETE_ULTIMA_OCUPACAO" => now(),
+                ]);
+            }else{
+                $piquetes->first()->update([
+                    "PIQUETE_ULTIMA_DESOCUPACAO" => now(),
+                ]);
+            }
+            return $this->sendResponse($piquetes->first()->makeHidden(['id','created_at','updated_at']), 'Piquete updated ');
         }
 }

@@ -22,8 +22,8 @@ class CreateFazendasPiquetesTable extends Migration
 			$table->integer('PIQUETE_INDEX');
 			$table->string('PIQUETE_DESCRICAO')->nullable();
 			$table->integer('PIQUETE_OCUPADO')->default(false);
-			$table->integer('PIQUETE_ULTIMA_DESOCUPACAO')->nullable();
-			$table->integer('PIQUETE_ULTIMA_OCUPACAO')->nullable();
+			$table->timestamp('PIQUETE_ULTIMA_DESOCUPACAO')->nullable();
+			$table->timestamp('PIQUETE_ULTIMA_OCUPACAO')->nullable();
 
             $table->timestamps();
 		});

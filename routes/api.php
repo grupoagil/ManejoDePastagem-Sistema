@@ -18,6 +18,7 @@ Route::group(['namespace'=>'Api'],function () {
     Route::post('register', 'AuthController@signup');
     Route::group(['middleware' => 'auth:sanctum'],function () {
         Route::get('me', 'AuthController@me');
+        Route::get('info', 'AuthController@info');
         // Pasto
         Route::group(['prefix'=>'pastos'],function () {
             Route::get('lista', 'PastosController@lista');
@@ -32,6 +33,7 @@ Route::group(['namespace'=>'Api'],function () {
             Route::post('apagar', 'FazendasController@apagar');
             // Fazendas
             Route::group(['prefix'=>'{id}/piquetes'],function () {
+                Route::post('atualiza', 'FazendasController@atualizaPiquete');
                 Route::post('novo', 'FazendasController@addPiquete');
                 Route::post('apagar', 'FazendasController@removePiquete');
             });
