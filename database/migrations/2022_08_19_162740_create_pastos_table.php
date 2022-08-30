@@ -17,11 +17,9 @@ class CreatePastosTable extends Migration
 	{
 		Schema::create('pastos', function(Blueprint $table) {
             $table->increments('id');
-
+			// Nome Pasto
 			$table->string('PASTO_NOME');
-			$table->date('PASTO_DATA_INICIAL')->nullable();
-			$table->date('PASTO_DATA_FINAL')->nullable();
-			$table->longText('PASTO_DESCRICAO')->nullable();
+			$table->string('PASTO_TIPO');
 
             $table->timestamps();
 		});

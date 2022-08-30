@@ -17,11 +17,13 @@ class CreatePastosPeriodosTable extends Migration
 	{
 		Schema::create('pastos_periodos', function(Blueprint $table) {
             $table->increments('id');
+			
+			$table->string('PASTO_PERIODO_NOME');
+			$table->date('PASTO_DATA_INICIAL')->nullable();
+			$table->date('PASTO_DATA_FINAL')->nullable();
 			// Pasto
 			$table->integer('PASTO_ID')->unsigned();
 			$table->foreign('PASTO_ID')->references('id')->on('pastos')->onDelete('cascade');
-			// Nome Pasto
-			$table->string('PASTO_PERIODO_NOME');
 
             $table->timestamps();
 		});

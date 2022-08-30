@@ -24,6 +24,12 @@ Route::group(['namespace'=>'Api'],function () {
             Route::get('lista', 'PastosController@lista');
             Route::post('novo', 'PastosController@novo');
             Route::post('apagar', 'PastosController@apagar');
+            // Períodos
+            Route::group(['prefix'=>'periodos'],function () {
+                Route::get('lista', 'PastosController@listaPeriodos');
+                Route::post('novo', 'PastosController@novoPeriodo');
+                Route::post('apagar', 'PastosController@apagarPeriodo');
+            });
         });
         // Fazendas
         Route::group(['prefix'=>'fazendas'],function () {

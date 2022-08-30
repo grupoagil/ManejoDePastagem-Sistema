@@ -22,9 +22,7 @@ class Pastos extends Model implements Transformable
      */
     protected $fillable = [
         'PASTO_NOME',
-        'PASTO_DATA_INICIAL',
-        'PASTO_DATA_FINAL',
-        'PASTO_DESCRICAO'
+        'PASTO_TIPO'
     ];
 
 }

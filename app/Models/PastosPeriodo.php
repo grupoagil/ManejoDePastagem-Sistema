@@ -21,8 +21,10 @@ class PastosPeriodo extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-        'PASTO_ID',
-        'PASTO_PERIODO_NOME'
+        'PASTO_PERIODO_NOME',
+        'PASTO_DATA_INICIAL',
+        'PASTO_DATA_FINAL',
+        'PASTO_ID'
     ];
 
 }
