@@ -27,4 +27,14 @@ class PastosPeriodo extends Model implements Transformable
         'PASTO_ID'
     ];
 
+    /**
+     * Get the pasto that owns the PastosPeriodo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pasto()
+    {
+        return $this->belongsTo(Pastos::class, 'PASTO_ID', 'id');
+    }
+
 }

@@ -84,7 +84,7 @@ class PastosController extends BaseController
          */
         public function listaPeriodos()
         {
-            $pastos = $this->pastosPeriodoRepository->all();
+            $pastos = $this->pastosPeriodoRepository->with('pasto')->all();
             return $this->sendResponse($pastos->makeHidden(['created_at','updated_at']), 'Get List Períodos.');
         }
         

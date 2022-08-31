@@ -35,4 +35,14 @@ class Fazendas extends Model implements Transformable
         return $this->hasMany(FazendasPiquetes::class, 'FAZENDA_ID', 'id');
     }
 
+    /**
+     * Get the pasto that owns the Fazendas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pasto()
+    {
+        return $this->belongsTo(Pastos::class, 'PASTO_ID', 'id');
+    }
+
 }

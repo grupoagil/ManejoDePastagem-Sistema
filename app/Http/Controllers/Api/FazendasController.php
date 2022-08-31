@@ -41,7 +41,7 @@ class FazendasController extends BaseController
                     'PIQUETE_OCUPADO',
                     'PIQUETE_ULTIMA_DESOCUPACAO',
                     'PIQUETE_ULTIMA_OCUPACAO']);
-                }])->all();
+                },'pasto'])->all();
                 return $this->sendResponse($fazendas->makeHidden(['created_at','updated_at']), 'Get List Fazendas.');
             } catch (\Throwable $th) {
                 //throw $th;

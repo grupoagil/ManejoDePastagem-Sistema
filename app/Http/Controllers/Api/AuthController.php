@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\PastosRepository;
 use App\Repositories\FazendasRepository;
+use App\Repositories\PastosPeriodoRepository;
 use App\Repositories\FazendasPiquetesRepository;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
@@ -21,11 +22,13 @@ class AuthController extends BaseController
     public function __construct(
         PastosRepository $pastosRepository,
         FazendasRepository $fazendasRepository,
+        PastosPeriodoRepository $pastosPeriodoRepository,
         FazendasPiquetesRepository $fazendasPiquetesRepository
     )
     {
         $this->pastosRepository = $pastosRepository;
         $this->fazendasRepository = $fazendasRepository;
+        $this->pastosPeriodoRepository = $pastosPeriodoRepository;
         $this->fazendasPiquetesRepository = $fazendasPiquetesRepository;
     }
 
@@ -76,6 +79,7 @@ class AuthController extends BaseController
     {
         $array = [
             "pastos" => $this->pastosRepository->count(),
+            "periodos" => $this->pastosPeriodoRepository->count(),
             "fazendas"=>[
                 "count" => $this->fazendasRepository->count(),
                 "piquetes" => $this->fazendasPiquetesRepository->count()
