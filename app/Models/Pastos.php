@@ -25,4 +25,14 @@ class Pastos extends Model implements Transformable
         'PASTO_TIPO'
     ];
 
+    /**
+     * Get all of the fazendas for the Pastos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fazendas()
+    {
+        return $this->hasMany(Fazendas::class, 'PASTO_ID', 'id');
+    }
+
 }

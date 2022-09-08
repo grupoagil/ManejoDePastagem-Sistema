@@ -69,7 +69,14 @@ class PastosController extends BaseController
         public function apagar(Request $request)
         {
             try {
-                $pasto = $this->pastosRepository->delete($request->id);
+                $pasto = $this->pastosRepository->find($request->id);
+                // Tira o pasto da fazenda
+                foreach ($pasto->fazendas as $key => $fazenda) {
+                    $fazenda->update([
+                        "PASTO_ID" => null
+                    ]);
+                }
+                $pasto->delete();
                 return $this->sendResponse($pasto, 'Pasto id: '.$request->id.' deleted.');
             } catch (\Throwable $th) {
                 //throw $th;
