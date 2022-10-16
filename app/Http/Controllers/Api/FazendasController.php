@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Validator;
 use Illuminate\Http\Request;
 use App\Repositories\FazendasRepository;
+use App\Repositories\PiquetesHistoryRepository;
 use App\Repositories\FazendasPiquetesRepository;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
@@ -17,11 +18,13 @@ class FazendasController extends BaseController
      */
     public function __construct(
         FazendasRepository $fazendasRepository,
+        PiquetesHistoryRepository $piquetesHistoryRepository,
         FazendasPiquetesRepository $fazendasPiquetesRepository
     )
     {
         $this->middleware('auth:sanctum');
         $this->fazendasRepository = $fazendasRepository;
+        $this->piquetesHistoryRepository = $piquetesHistoryRepository;
         $this->fazendasPiquetesRepository = $fazendasPiquetesRepository;
     }
 
@@ -207,10 +210,22 @@ class FazendasController extends BaseController
                 "PIQUETE_OCUPADO" => ($request->ocupado)?1:0,
             ]);
             if ($request->ocupado) {
+                $this->piquetesHistoryRepository->create([
+                    'PIQUETE_ID' => $piquetes->first()->id,
+                    'PIQUETE_OP' => 0,
+                    'PIQUETE_TIME' => now(),
+                    'USER_ID' => auth()->user()->id
+                ]);
                 $piquetes->first()->update([
                     "PIQUETE_ULTIMA_OCUPACAO" => now(),
                 ]);
             }else{
+                $this->piquetesHistoryRepository->create([
+                    'PIQUETE_ID' => $piquetes->first()->id,
+                    'PIQUETE_OP' => 1,
+                    'PIQUETE_TIME' => now(),
+                    'USER_ID' => auth()->user()->id
+                ]);
                 $piquetes->first()->update([
                     "PIQUETE_ULTIMA_DESOCUPACAO" => now(),
                 ]);

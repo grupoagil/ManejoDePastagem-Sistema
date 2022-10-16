@@ -27,6 +27,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\FazendasPiquetesRepository::class, \App\Repositories\FazendasPiquetesRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\PastosRepository::class, \App\Repositories\PastosRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\PastosPeriodoRepository::class, \App\Repositories\PastosPeriodoRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\PiquetesHistoryRepository::class, \App\Repositories\PiquetesHistoryRepositoryEloquent::class);
         //:end-bindings:
     }
 }

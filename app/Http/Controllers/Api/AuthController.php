@@ -77,13 +77,30 @@ class AuthController extends BaseController
 
     public function info()
     {
+        /**
+         * Verifica se está dentro do prazo
+         */
+        $periodos = $this->pastosPeriodoRepository->all();
+        $alertas = [];
+        foreach ($periodos as $key => $periodo) {
+            if (
+                time() >= strtotime($periodo->PASTO_DATA_FINAL.' -3 days') &&
+                time() <= strtotime($periodo->PASTO_DATA_FINAL)
+            ) {
+                array_push($alertas,$periodo);
+            }
+        }
+        /**
+         * Array de Retorno
+         */
         $array = [
             "pastos" => $this->pastosRepository->count(),
             "periodos" => $this->pastosPeriodoRepository->count(),
             "fazendas"=>[
                 "count" => $this->fazendasRepository->count(),
                 "piquetes" => $this->fazendasPiquetesRepository->count()
-            ]
+            ],
+            "alertas" => $alertas
         ];
         return $this->sendResponse($array,'Get Info.');
     }
