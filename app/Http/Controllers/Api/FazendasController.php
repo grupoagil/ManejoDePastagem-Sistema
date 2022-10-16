@@ -198,6 +198,19 @@ class FazendasController extends BaseController
             return $this->sendResponse($fazenda->makeHidden(['created_at','updated_at']), 'Piquete removed to Fazenda '.$fazenda->FAZENDA_NOME);
         }
 
+        public function historyPiquete(Request $request, $idFazenda)
+        {
+            $piquetes = $this->fazendasPiquetesRepository->findWhere(['FAZENDA_ID' => $idFazenda,'PIQUETE_INDEX' => $request->index]);
+            if ($piquetes->count() == 0) {
+                # code...
+                // Error
+            }
+            $history = $this->piquetesHistoryRepository->with(['user','piquete'])->findWhere([
+                'PIQUETE_ID' => $piquetes->first()->id
+            ]);
+            return $this->sendResponse($history, 'Get Piquete hitory.');
+        }
+
         public function atualizaPiquete(Request $request, $idFazenda)
         {
             // date_default_timezone_set('America/Belem');

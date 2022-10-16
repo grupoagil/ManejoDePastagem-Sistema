@@ -27,4 +27,23 @@ class PiquetesHistory extends Model implements Transformable
         'USER_ID'
     ];
 
+    /**
+     * Get the user that owns the PiquetesHistory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'USER_ID', 'id');
+    }
+
+    /**
+     * Get the piquete that owns the PiquetesHistory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function piquete()
+    {
+        return $this->belongsTo(FazendasPiquetes::class, 'PIQUETE_ID', 'id');
+    }
 }

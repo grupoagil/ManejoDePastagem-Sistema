@@ -42,6 +42,7 @@ Route::group(['namespace'=>'Api'],function () {
                 Route::post('atualiza', 'FazendasController@atualizaPiquete');
                 Route::post('novo', 'FazendasController@addPiquete');
                 Route::post('apagar', 'FazendasController@removePiquete');
+                Route::post('history', 'FazendasController@historyPiquete');
             });
         });
     });
